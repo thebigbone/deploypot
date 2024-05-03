@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -54,5 +55,16 @@ func main() {
 	infoLog.Println(config.App.Arguments)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	data := ServiceData{
+		Description: config.App.Name,
+		ExecStart:   config.App.Directory,
+	}
+
+	err = CreateAndStartService(data)
+	if err != nil {
+		fmt.Println("Error creating and starting service:", err)
+		os.Exit(1)
 	}
 }
