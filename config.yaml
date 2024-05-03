@@ -1,0 +1,8 @@
+app:
+  name: example-app
+  repo_url: https://github.com/thebigbone/load-balancer
+  directory: load-balancer
+  language: go
+  arguments:
+    - "-port"
+    - "8090"
