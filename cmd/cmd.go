@@ -67,8 +67,9 @@ func main() {
 
 	infoLog.Println(full_path)
 	data := ServiceData{
-		Description: config.App.Name,
-		ExecStart:   full_path,
+		Description:   config.App.Name,
+		ExecStart:     full_path,
+		ExecStartArgs: config.App.Arguments,
 	}
 
 	err = CreateAndStartService(data)

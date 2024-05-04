@@ -14,7 +14,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart={{.ExecStart}}
+ExecStart={{.ExecStart}} {{range .ExecStartArgs}}{{.}} {{end}}
 Restart=always
 
 [Install]
@@ -22,8 +22,9 @@ WantedBy=multi-user.target
 `
 
 type ServiceData struct {
-	Description string
-	ExecStart   string
+	Description   string
+	ExecStart     string
+	ExecStartArgs []string
 }
 
 func CreateAndStartService(data ServiceData) error {
