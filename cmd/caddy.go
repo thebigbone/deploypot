@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-const caddyFileTemplate = `{{.Domain}} 
+const caddyFileTemplate = `{{.Domain}} {
 	    reverse_proxy {{.ReverseProxy}}
         encode zstd gzip
 }
