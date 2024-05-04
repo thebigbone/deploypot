@@ -10,6 +10,7 @@ import (
 const unitFileTemplate = `
 [Unit]
 Description={{.Description}}
+After=network.target
 
 [Service]
 Type=simple
@@ -31,10 +32,16 @@ func CreateAndStartService(data ServiceData) error {
 		return err
 	}
 
+	_, err = os.Stat("/etc/systemd/system/deploy.service")
+	if err == nil {
+		return nil
+	}
+
 	file, err := os.Create("/etc/systemd/system/deploy.service")
 	if err != nil {
 		return err
 	}
+
 	defer func() {
 		err := file.Close()
 		if err != nil {
@@ -52,12 +59,12 @@ func CreateAndStartService(data ServiceData) error {
 		return err
 	}
 
-	err = runCommand("systemctl", "enable", "myservice")
+	err = runCommand("systemctl", "enable", "deploy.service")
 	if err != nil {
 		return err
 	}
 
-	err = runCommand("systemctl", "start", "myservice")
+	err = runCommand("systemctl", "start", "deploy.service")
 	if err != nil {
 		return err
 	}

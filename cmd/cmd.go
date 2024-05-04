@@ -57,9 +57,18 @@ func main() {
 		log.Fatal(err)
 	}
 
+	path, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	full_path := path + "/" + config.App.Directory + "/" + config.App.Name
+
+	infoLog.Println(full_path)
 	data := ServiceData{
 		Description: config.App.Name,
-		ExecStart:   config.App.Directory,
+		ExecStart:   full_path,
 	}
 
 	err = CreateAndStartService(data)
