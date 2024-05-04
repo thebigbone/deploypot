@@ -3,13 +3,12 @@ package main
 import (
 	"log"
 	"os"
-	"os/exec"
 	"text/template"
 )
 
-const caddyFileTemplate = `{{.Domain}} {
-    reverse_proxy {{.ReverseProxy}}
-    encode zstd gzip
+const caddyFileTemplate = `{{.Domain}} 
+	    reverse_proxy {{.ReverseProxy}}
+        encode zstd gzip
 }
 `
 
@@ -53,15 +52,6 @@ func startCaddy(data CaddyData) error {
 	if err != nil {
 		return err
 	}
-
-	cmd := exec.Command("lsof", "-i", ":2019", "|", "awk", "-F", "'{print $2}'", "|", "tail", "-n", "1")
-	output, err := cmd.Output()
-
-	if err != nil {
-		log.Fatal(output)
-	}
-
-	exec.Command("kill", string(output))
 
 	err = runCommand("caddy", "start", "--config", path+"/"+caddyfile)
 	if err != nil {
