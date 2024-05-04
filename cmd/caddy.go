@@ -53,6 +53,11 @@ func startCaddy(data CaddyData) error {
 		return err
 	}
 
+	err = runCommand("caddy", "stop")
+	if err != nil {
+		return err
+	}
+
 	err = runCommand("caddy", "start", "--config", path+"/"+caddyfile)
 	if err != nil {
 		return err
