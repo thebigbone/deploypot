@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"text/template"
 )
@@ -23,12 +24,20 @@ func startCaddy(data CaddyData) error {
 		return err
 	}
 
-	_, err = os.Stat("/etc/caddy/Caddyfile")
+	path, err := os.Getwd()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	caddyfile := "Caddyfile"
+
+	_, err = os.Stat(path + "/" + caddyfile)
 	if err == nil {
 		return nil
 	}
 
-	file, err := os.Create("/etc/caddy/Caddyfile")
+	file, err := os.Create(path + "/" + caddyfile)
 	if err != nil {
 		return err
 	}
@@ -45,7 +54,7 @@ func startCaddy(data CaddyData) error {
 		return err
 	}
 
-	err = runCommand("caddy", "start")
+	err = runCommand("caddy", "start", "--config", path+"/"+caddyfile)
 	if err != nil {
 		return err
 	}
