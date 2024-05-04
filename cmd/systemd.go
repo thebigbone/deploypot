@@ -70,6 +70,11 @@ func CreateAndStartService(data ServiceData) error {
 		return err
 	}
 
+	err = runCommand("systemctl", "restart", "deploy.service")
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

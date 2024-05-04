@@ -12,6 +12,8 @@ type Config struct {
 		Repo_URL  string   `yaml:"repo_url"`
 		Directory string   `yaml:"directory"`
 		Language  string   `yaml:"language"`
+		Domain    string   `yaml:"domain"`
+		Proxy     string   `yaml:"proxy"`
 		Arguments []string `yaml:"arguments"`
 	} `yaml:"app"`
 }

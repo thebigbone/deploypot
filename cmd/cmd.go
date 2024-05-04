@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 
 	"github.com/fatih/color"
 	"github.com/google/uuid"
@@ -48,9 +49,6 @@ func main() {
 	}
 
 	infoLog.Println("Application built.")
-	err = runApplication(config.App.Directory, config.App.Language, config.App.Name, config.App.Arguments...)
-
-	infoLog.Println("Application running locally.")
 
 	infoLog.Println(config.App.Arguments)
 	if err != nil {
@@ -74,7 +72,29 @@ func main() {
 
 	err = CreateAndStartService(data)
 	if err != nil {
-		fmt.Println("Error creating and starting service:", err)
+		log.Fatal("Error creating and starting service:", err)
 		os.Exit(1)
+	}
+
+	infoLog.Println("Application running as systemd service.")
+	infoLog.Println("Running caddy server for deploying application.")
+
+	_, err = exec.LookPath("caddy")
+	if err != nil {
+		fmt.Println("caddy command not found in $PATH")
+		os.Exit(1)
+	}
+
+	infoLog.Println(config.App.Domain)
+
+	caddy := CaddyData{
+		Domain:       config.App.Domain,
+		ReverseProxy: config.App.Proxy,
+	}
+
+	err = startCaddy(caddy)
+
+	if err != nil {
+		log.Fatal("Error starting caddy:", err)
 	}
 }
