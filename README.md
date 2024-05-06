@@ -1,19 +1,19 @@
-### Making test deployments easier
+## Making test deployments easier
 
 You can deploy your application on a public server and host it on a domain of choice without any hassle of configuring it or using containers. Currently only Go is supported.
 
-#### How does it work
+### How does it work
 
 By leveraging [systemd](https://systemd.io) and [caddy](https://caddyserver.com). The app will create a systemd service of minimal configuration. After that, caddy (a very powerful web server) will start the web server and setup everything including HTTPS.
 
 | Languages  | Supported |
 | ---------- | --------- |
-| Go         | [x]       |
-| Python     | [ ]       |
-| Ruby       | [ ]       |
-| JavaScript | [ ]       |
+| Go         | ✅        |
+| Python     | ❌        |
+| Ruby       | ❌        |
+| JavaScript | ❌        |
 
-#### Prerequisites
+### Prerequisites
 
 The `config.yaml` file needs to be adjusted according to your application.
 
@@ -32,17 +32,19 @@ app:
 
 **Note:** Point your public IP address to the domain name.
 
-#### Installation
+### Installation
 
 - install [go](https://go.dev/install)
 - install [caddy](https://caddyserver.com/docs/install)
 - `cd cmd`
 - run `go build .` or `go run .` for running the application.
 
-#### TODO
+### TODO
 
-[ ] Support different languages
-[ ] Support different init services
-[ ] Have an option for docker deployment
-[ ] Monitoring and notification
-[ ] Deploy on every new commit
+| Tasks                                | Progress |
+| ------------------------------------ | -------- |
+| Support different languages          |
+| Support different init services      |
+| Have an option for docker deployment |
+| Monitoring and notification          |
+| Deploy on every new commit           |
