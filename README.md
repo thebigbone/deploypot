@@ -1,5 +1,7 @@
 ## Making test deployments easier
 
+https://github.com/thebigbone/deploypot/assets/95130644/637ef1d1-9a27-4da3-8d4d-7c40ca1921b2
+
 You can deploy your application on a public server and host it on a domain of choice without any hassle of configuring it or using containers. Currently only Go is supported.
 
 ### How does it work
